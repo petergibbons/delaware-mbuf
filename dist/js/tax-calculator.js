@@ -437,63 +437,62 @@ function calculateTotal() {
   } else if (calc_form.valid() == 0) {
     hideTotal();
   } else {
+      // go time!!
 
 
-
-      // state taxes
+    // state taxes
         var carMPG = getMPG(); //b7
-        var percentOutside = getPercentDriven(); //b5
+        var percentOutside = parseFloat(getPercentDriven()) / 100.0; //b5 converted % to decimal
+        
         var milesDrivenPerMonth = getMiles();  //b3
 
-        var percentOutsideMinusOne = percentOutside-1;
-        var milesPercent = milesDrivenPerMonth*percentOutside; //b3*b5
-        var milesPercentMinusOne = milesDrivenPerMonth*percentOutsideMinusOne;
+        var percentOutsideMinusOne = 1 - percentOutside;
+        var milesPercent = milesDrivenPerMonth * percentOutside; //b3*b5
+        var milesPercentMinusOne = milesDrivenPerMonth * percentOutsideMinusOne;
         
-        var stateGasTax1 = (milesPercent/carMPG)*0.4675;
-        var stateGasTax2 = (milesPercentMinusOne/carMPG)*0.23;
+        var stateGasTax1 = (milesPercent / carMPG) * 0.4675;
+        var stateGasTax2 = (milesPercentMinusOne / carMPG) * 0.23;
+       
         var stateGasTotal = stateGasTax2 + stateGasTax1;
 
-        //var stateGasTotalDisplay = parseFloat(stateGasTotal);
+        // var stateGasTotalDisplay = parseFloat(stateGasTotal);
 
-        var stateGasTotal = stateGasTotal *= -1; // convert to positive
+        // var stateGasTotal = stateGasTotal *= -1; // convert to positive
 
-        /*=(((B3*B5)/B7)*0.4675)+(((B3*(1-B5))/B7)*0.23)
-        //=((($1*$2)/$3)*0.4675)+((($1*(1-$2))/$3)*0.23)
-
-     */
+        /*
+          =(((B3*B5)/B7)*0.4675)+(((B3*(1-B5))/B7)*0.23)
+          =((($1*$2)/$3)*0.4675)+((($1*(1-$2))/$3)*0.23)
+        */
 
         //  console.log("percentOutside: " + percentOutside);
         //  console.log("MPM: " + milesDrivenPerMonth);
         //  console.log("MPG: " + carMPG);
           var stateGasTax = stateGasTotal;
-          console.log("State Gas total: " + stateGasTax.toFixed(2));
+         // console.log("State Gas total: " + stateGasTax.toFixed(2));
         
      
-
-
-
-
     // MBUF
 
    //   =(B3*B5*0.0213)+(B3*(1-B5)*0.0105)
-        mbuf1 = (milesPercent/carMPG) * 0.0213;
-        mbuf2 = milesPercentMinusOne*0.0105;
+     /*   mbuf1 = (milesPercent/carMPG) * 0.0213;
+        mbuf2 = milesPercentMinusOne * 0.0105;
         mbufTotal = mbuf1+mbuf2;
-
-        var MBUFTAX = mbufTotal;
+      */
+        MBUFTAX1 = milesPercent * 0.0213;
+        MBUFTAX2 = milesDrivenPerMonth * percentOutsideMinusOne * 0.0105;
+        MBUFTAX = MBUFTAX1 + MBUFTAX2;
 
        // var MBUFTAX = MBUFTAX *= -1; // convert to positive
           console.log("MBUF total: " + MBUFTAX.toFixed(2));
-          console.log("- - - - - - - - - - - - - - - - - - - - - -")
+          console.log("- - - - - - - - - - - - - - - - - - - - - -");
 
 
-
-    $('#totalPrice').html("<div class='table-responsive-js'><table class='table table-striped table-bordered table-hover'><tr><th>Gas Tax</th><th>MBUF</th><tr><tr><td>"+stateGasTax.toFixed(2)+"</td><td>$"+MBUFTAX.toFixed(2)+"</td></tr></tbody></table></div>");
+    $('#totalPrice').html("<div class='table-responsive-js'><table class='table table-striped table-bordered table-hover'><tr><th>Gas Tax</th><th>MBUF</th><tr><tr><td>$"+stateGasTax.toFixed(2)+"</td><td>$"+MBUFTAX.toFixed(2)+"</td></tr></tbody></table></div>");
 
 
 
     if (getMPGtype() != 'MPGe'){
-      $('#totalPriceEVtoggle').html('<a role="button" data-toggle="collapse" href="#EVcollapse" aria-expanded="false" aria-controls="EVcollapse">Compare to a Fully-electric vehicle</a>');
+      $('#totalPriceEVtoggle').html('<a role="button" data-toggle="collapse" href="#EVcollapse" aria-expanded="false" aria-controls="EVcollapse" style="display:none;">Compare to a Fully-electric vehicle</a>');
       $('#totalPriceEVcompare').html("<h4><strong>How Much A Fully-Electric Vehicle Would Pay:</strong></h4><div class='table-responsive-js'><table class='table table-striped table-bordered table-hover'><tr><th></th><th>Gas Tax</th><th>MBUF</th><tr><tr><th>"+statewcountytablename+"</th><td>"+gasPrice_EVtoggle+"</td><td>$"+roundclean(RCgasPrice,2)+"</td></tr></tbody></table></div>");
 
     }
@@ -503,7 +502,7 @@ function calculateTotal() {
 function IsPostiveInteger(n) {
   var n = new Number(n);
   return !isNaN(n) && n===parseInt(n,10) && n>0;
-} 
+}
 
 function hideTotal() {
     $('#totalPrice').html("<div class='table-responsive-js'><table class='table table-striped table-bordered table-hover'><tbody><tr><td colspan='3'><h4>Please enter your selection for Location, Mileage, and your vehicle's MPG in order to see your results.</h4></td></tr></tbody></table></div>");
