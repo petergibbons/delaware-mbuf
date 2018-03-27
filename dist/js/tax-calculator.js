@@ -472,28 +472,22 @@ function calculateTotal() {
         
      
     // MBUF
+    // =(B3*B5*0.0213)+(B3*(1-B5)*0.0105)
 
-   //   =(B3*B5*0.0213)+(B3*(1-B5)*0.0105)
-     /*   mbuf1 = (milesPercent/carMPG) * 0.0213;
-        mbuf2 = milesPercentMinusOne * 0.0105;
-        mbufTotal = mbuf1+mbuf2;
-      */
         MBUFTAX1 = milesPercent * 0.0213;
         MBUFTAX2 = milesDrivenPerMonth * percentOutsideMinusOne * 0.0105;
         MBUFTAX = MBUFTAX1 + MBUFTAX2;
 
-       // var MBUFTAX = MBUFTAX *= -1; // convert to positive
-          console.log("MBUF total: " + MBUFTAX.toFixed(2));
-          console.log("- - - - - - - - - - - - - - - - - - - - - -");
+        //console.log("MBUF total: " + MBUFTAX.toFixed(2));
+        //console.log("- - - - - - - - - - - - - - - - - - - - - -");
 
 
-    $('#totalPrice').html("<div class='table-responsive-js'><table class='table table-striped table-bordered table-hover'><tr><th>Gas Tax</th><th>MBUF</th><tr><tr><td>$"+stateGasTax.toFixed(2)+"</td><td>$"+MBUFTAX.toFixed(2)+"</td></tr></tbody></table></div>");
-
+    $('#totalPrice').html("<div class='table-responsive-js'><table class='table table-striped table-bordered table-hover'><tr><th>How Much You Pay Per Month in State Gas Tax</th><th>How Much You Would Pay in MBUF</th><tr><tr><td>$"+stateGasTax.toFixed(2)+"</td><td>$"+MBUFTAX.toFixed(2)+"</td></tr></tbody></table></div>");
 
 
     if (getMPGtype() != 'MPGe'){
       $('#totalPriceEVtoggle').html('<a role="button" data-toggle="collapse" href="#EVcollapse" aria-expanded="false" aria-controls="EVcollapse" style="display:none;">Compare to a Fully-electric vehicle</a>');
-      $('#totalPriceEVcompare').html("<h4><strong>How Much A Fully-Electric Vehicle Would Pay:</strong></h4><div class='table-responsive-js'><table class='table table-striped table-bordered table-hover'><tr><th></th><th>Gas Tax</th><th>MBUF</th><tr><tr><th>"+statewcountytablename+"</th><td>"+gasPrice_EVtoggle+"</td><td>$"+roundclean(RCgasPrice,2)+"</td></tr></tbody></table></div>");
+      $('#totalPriceEVcompare').html("<h4><strong>How Much A Fully-Electric Vehicle Would Pay:</strong></h4><div class='table-responsive-js'><table class='table table-striped table-bordered table-hover'><tr><th></th><th>State Gas Tax</th><th>MBUF</th><tr><tr><th>"+statewcountytablename+"</th><td>"+gasPrice_EVtoggle+"</td><td>$"+roundclean(RCgasPrice,2)+"</td></tr></tbody></table></div>");
 
     }
   }

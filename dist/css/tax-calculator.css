@@ -1,3 +1,5 @@
+@import url("https://use.typekit.net/fnp2qpe.css");
+
 
 .section.white-bg {
     width: 100%;
@@ -23,7 +25,10 @@ form#ruc-calc-form label.error {
     border: 1px solid rgba(30, 57, 72, 0.3);
     border-radius: 4px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+
+    font-family: "futura-pt", sans-serif;
 }
+h1, h2, h3, h4, h5, h6 { font-family: "sofia-pro",sans-serif; }
 .de-calc-box {
     margin-bottom: 20px;
     margin-top: 10px;
