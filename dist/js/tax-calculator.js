@@ -129,7 +129,7 @@ $( document ).ready(function() {
       });
     }
 
-    function  chgYears () {
+    function chgYears () {
       var myyear = $( "#mnuYear option:selected" ).text();
 
       if ($( "#mnuYear option:selected" ).text() == "Select Year") {
@@ -307,8 +307,9 @@ function getMiles() {
 }
 
 function getPercentDriven() {
-    var val_percent=0;
-    val_percent = $("#percent-outside").val();
+    var val_percent=18;
+    //val_percent = $("#percent-outside").val();
+
     return val_percent;
 }
 
@@ -499,7 +500,7 @@ function IsPostiveInteger(n) {
 }
 
 function hideTotal() {
-    $('#totalPrice').html("<div class='table-responsive-js'><table class='table table-striped table-bordered table-hover'><tbody><tr><td colspan='3'><h4>Please enter your selection for Location, Mileage, and your vehicle's MPG in order to see your results.</h4></td></tr></tbody></table></div>");
+    $('#totalPrice').html("<div class='table-responsive-js'><table class='table table-striped table-bordered table-hover'><tbody><tr><td colspan='3'><h4>Please enter your miles driven and your vehicle's MPG in order to see your results.</h4></td></tr></tbody></table></div>");
     $('#totalPriceEVtoggle').html('');
     $('#totalPriceEVcompare').html('');
 }
